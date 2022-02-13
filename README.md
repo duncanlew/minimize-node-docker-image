@@ -1,0 +1,1 @@
+# minimize-node-docker-image
