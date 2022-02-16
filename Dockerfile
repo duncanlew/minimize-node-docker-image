@@ -1,4 +1,4 @@
-FROM node:17-slim
+FROM node:17-slim as BUILD_IMAGE
 
 WORKDIR /usr/src/app
 
@@ -7,5 +7,16 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+# Separation
+FROM node:17-slim
+WORKDIR /usr/src/app
+
+COPY --from=BUILD_IMAGE /usr/src/app/dist ./dist
+COPY --from=BUILD_IMAGE /usr/src/app/node_modules ./node_modules
+
+
+
+# RUN rm -rf node_modules
+
 EXPOSE 8080
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "node", "dist/main.js" ]
