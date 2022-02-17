@@ -1,1 +1,1 @@
-# minimize-node-docker-image
+# NestJS application with Dockerfile
