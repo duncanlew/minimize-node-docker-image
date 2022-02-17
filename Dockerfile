@@ -12,9 +12,9 @@ FROM node:17-slim as PRODUCTION
 
 WORKDIR /usr/src/app
 
-COPY --from=BUILD_IMAGE /usr/src/app/dist ./dist
-COPY --from=BUILD_IMAGE /usr/src/app/package.json ./package.json
-COPY --from=BUILD_IMAGE /usr/src/app/package-lock.json ./package-lock.json
+COPY --from=DEVELOPMENT /usr/src/app/dist ./dist
+COPY --from=DEVELOPMENT /usr/src/app/package.json ./package.json
+COPY --from=DEVELOPMENT /usr/src/app/package-lock.json ./package-lock.json
 
 RUN npm ci --production
 
